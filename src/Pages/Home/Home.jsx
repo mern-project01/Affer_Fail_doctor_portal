@@ -1,11 +1,25 @@
-import React from 'react';
+import React from "react";
+import HomeBanner from "./HomeBanner/HomeBanner";
+import HomeBannerCard from "./HomeBanner/HomeBannerCard";
+import Homeservice from "./HomeService/Homeservice";
+import HomeAppointment from "./HomeAppointment/HomeAppointment";
+import Hometestimonal from "./HomeTestimonal/Hometestimonal";
+import HomeContact from "./HomeContact/HomeContact";
 
 const Home = () => {
-    return (
-        <div>
-            <h1 className='text-4xl text-primary'> this is home page</h1>
-        </div>
-    );
+  return (
+    <div>
+      {/* this is  for home baner*/}
+      <HomeBanner></HomeBanner>
+      <HomeBannerCard></HomeBannerCard>
+      {/* this is for home service section */}
+      <Homeservice></Homeservice>
+      {/* this is for homeappointment section */}
+      <HomeAppointment></HomeAppointment>
+      <Hometestimonal></Hometestimonal>
+      <HomeContact></HomeContact>
+    </div>
+  );
 };
 
 export default Home;

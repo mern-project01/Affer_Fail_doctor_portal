@@ -4,7 +4,8 @@
 @plugin "daisyui";
 @theme{
     --color-primary:#0FCFEC;
-    --color-secendary:#19D3AE;
-    --color-base:#3A4256;
+    --color-secondary:#19D3AE;
+    --color-accent:#3A4256;
+    --color-base-100:#FFFFFF;
 
 }
