@@ -4,8 +4,9 @@ import { NavLink } from 'react-router-dom';
 const Header = () => {
     const UlItem = (<>
     <li> <NavLink to='/'>Home</NavLink> </li>
-    <li> <NavLink to='/'>About</NavLink> </li>
-    <li> <NavLink to='/'>Appointment</NavLink> </li>
+    <li> <NavLink to='/test'>Test</NavLink> </li>
+    <li> <NavLink to='/about'>About</NavLink> </li>
+    <li> <NavLink to='/appointment'>Appointment</NavLink> </li>
     <li> <NavLink to='/'>ContucUs</NavLink> </li>
     <li> <NavLink to='/'>Login</NavLink> </li>
     </>)

@@ -5,6 +5,7 @@ import Homeservice from "./HomeService/Homeservice";
 import HomeAppointment from "./HomeAppointment/HomeAppointment";
 import Hometestimonal from "./HomeTestimonal/Hometestimonal";
 import HomeContact from "./HomeContact/HomeContact";
+import Test from "../../Componets/test/Test";
 
 const Home = () => {
   return (
