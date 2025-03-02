@@ -4,9 +4,9 @@ import "react-day-picker/style.css";
 import chair from "../../../assets/img/chair 1.png";
 import landing from "../../../assets/img/landing-bg.png";
 
-const AppointmentBanner = () => {
-    const [selected, setSelected] = useState(null);
-
+const AppointmentBanner = ({selected,setSelected} ) => {
+    // const [selected, setSelected] = useState(null);
+console.log(selected)
     return (
       <div
         style={{
