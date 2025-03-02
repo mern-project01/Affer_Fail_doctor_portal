@@ -7,8 +7,8 @@ const Header = () => {
     <li> <NavLink to='/test'>Test</NavLink> </li>
     <li> <NavLink to='/about'>About</NavLink> </li>
     <li> <NavLink to='/appointment'>Appointment</NavLink> </li>
-    <li> <NavLink to='/'>ContucUs</NavLink> </li>
-    <li> <NavLink to='/'>Login</NavLink> </li>
+    <li> <NavLink to='/contact'>ContucUs</NavLink> </li>
+    <li> <NavLink to='/login'>Login</NavLink> </li>
     </>)
     return (
       <div className=''>
