@@ -1,3 +1,7 @@
 there will used react helmate,react,router dom ,contextapi,git ,firbase auth,daypiker,dasbord,and will try for live massege system ,backend,
 
-will complete home  page
+will complete home  page done
+
+try to move google auth code singup components to contextapi components
+also with full login and singup sections
+
