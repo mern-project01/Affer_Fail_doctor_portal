@@ -1,10 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import Gradient_Button from "../../Componets/Gradient_Button/Gradient_Button";
+import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import app from "../../Componets/Firbase/Firbase.init";
 
 const SingUp = () => {
+  const [User,setUser]=useState()
+const auth=getAuth(app)
+  const provider = new GoogleAuthProvider();
+  const handleGoogle = () => {
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        const user = result.user;
+        setUser(user)
+        console.log(user)
+    })
+  }
     const handleSubmite = () => {
-        alert('ok')
+      alert('ok')
+    
     }
   return (
     <div id="#singup">
@@ -38,7 +52,7 @@ const SingUp = () => {
               <hr></hr>
             </div>
             <div className="pb-5  text-center">
-              <button className="btn btn-outline outline-slate-600 ">
+              <button onClick={handleGoogle} className="btn btn-outline outline-slate-600 ">
                 CONTINUE WITH GOOGLE
               </button>
             </div>
