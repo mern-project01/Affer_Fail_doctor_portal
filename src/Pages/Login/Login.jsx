@@ -1,8 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import Gradient_Button from "../../Componets/Gradient_Button/Gradient_Button";
+import { AuthContext } from "../../Componets/Context/ContextApi";
 
 const Login = () => {
+    const { User, setUser, googleAuth } = useContext(AuthContext);
+
+  const handleGoogle = () => {
+    googleAuth()
+      .then((result) => {
+        const user = result.user;
+        setUser(user);
+        console.log(user);
+      });
+  }
   const handleSubmite = () => {
     alert("ok");
   };
@@ -39,7 +50,7 @@ const Login = () => {
               <hr></hr>
             </div>
             <div className="pb-5  text-center">
-              <button className="btn btn-outline outline-slate-600 ">
+              <button onClick={handleGoogle} className="btn btn-outline outline-slate-600 ">
                 CONTINUE WITH GOOGLE
               </button>
             </div>

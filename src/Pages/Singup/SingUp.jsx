@@ -1,25 +1,24 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { NavLink } from "react-router-dom";
 import Gradient_Button from "../../Componets/Gradient_Button/Gradient_Button";
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import app from "../../Componets/Firbase/Firbase.init";
+import { AuthContext } from "../../Componets/Context/ContextApi";
 
 const SingUp = () => {
-  const [User,setUser]=useState()
-const auth=getAuth(app)
-  const provider = new GoogleAuthProvider();
+  const { User, setUser, googleAuth } = useContext(AuthContext);
+
   const handleGoogle = () => {
-    signInWithPopup(auth, provider)
+    googleAuth()
       .then((result) => {
-        const user = result.user;
-        setUser(user)
-        console.log(user)
-    })
-  }
-    const handleSubmite = () => {
-      alert('ok')
-    
-    }
+      const user = result.user;
+      setUser(user);
+      console.log(user);
+    });
+  };
+  const handleSubmite = () => {
+    alert("ok");
+  };
   return (
     <div id="#singup">
       <div className="card bg-base-100 mx-auto my-10 w-full max-w-[500px] shrink-0 shadow-2xl">
@@ -52,7 +51,10 @@ const auth=getAuth(app)
               <hr></hr>
             </div>
             <div className="pb-5  text-center">
-              <button onClick={handleGoogle} className="btn btn-outline outline-slate-600 ">
+              <button
+                onClick={handleGoogle}
+                className="btn btn-outline outline-slate-600 "
+              >
                 CONTINUE WITH GOOGLE
               </button>
             </div>

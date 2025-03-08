@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
+import { AuthContext } from '../../../Componets/Context/ContextApi';
 
 const Header = () => {
+  const {User}=useContext(AuthContext)
     const UlItem = (<>
     <li> <NavLink to='/'>Home</NavLink> </li>
     <li> <NavLink to='/test'>Test</NavLink> </li>
@@ -11,7 +13,7 @@ const Header = () => {
     <li> <NavLink to='/login'>Login</NavLink> </li>
     </>)
     return (
-      <div className=''>
+      <div className="">
         <div className="navbar  -mt-7 mb-4 bg-base-100 shadow-">
           <div className="navbar-start">
             <div className="dropdown">
@@ -43,13 +45,26 @@ const Header = () => {
                 {UlItem}
               </ul>
             </div>
-            <a className="btn btn-ghost text-xl">Doctor_Portal</a>
+            <NavLink to="/" className="btn btn-ghost text-xl">
+              Doctor_Portal
+            </NavLink>
           </div>
           <div className="navbar-center hidden lg:flex">
             <ul className="menu menu-horizontal px-1 text-lg">{UlItem}</ul>
           </div>
           <div className="navbar-end">
-            <a className="btn">Dassboard</a>
+            {/* <a className="btn">{User ? User?.displayName : "Dassboard"} </a> */}
+            <details>
+              <summary>{User ? User?.displayName : "Dassboard"}</summary>
+              <ul className="bg-base-100 rounded-t-none p-2">
+                <li>
+                  <a className='btn'>Profile {User?.displayName} </a>
+                </li>
+                <li>
+                  <a className='btn'>LogOut {User?.displayName} </a>
+                </li>
+              </ul>
+            </details>
           </div>
         </div>
       </div>
