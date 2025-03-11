@@ -1,23 +1,47 @@
 import React, { useContext, useState } from "react";
 import { NavLink } from "react-router-dom";
 import Gradient_Button from "../../Componets/Gradient_Button/Gradient_Button";
-import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import app from "../../Componets/Firbase/Firbase.init";
+
 import { AuthContext } from "../../Componets/Context/ContextApi";
 
 const SingUp = () => {
-  const { User, setUser, googleAuth } = useContext(AuthContext);
-
+  const { User, setUser, googleAuth, handleLogin,handleName } = useContext(AuthContext);
+  const [Error, setError] = useState();
   const handleGoogle = () => {
-    googleAuth()
-      .then((result) => {
+    googleAuth().then((result) => {
       const user = result.user;
       setUser(user);
       console.log(user);
     });
   };
-  const handleSubmite = () => {
-    alert("ok");
+ 
+  const handleSubmite = (event) => {
+    event.preventDefault();
+
+    const form = event.target; // Correct way to access form
+    const name = form.name.value;
+    const email = form.email.value;
+    const password = form.password.value;
+
+    handleLogin(email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        const UpdatingName = {displayName:name};
+         handleName(UpdatingName)
+           .then(() => {})
+           .catch((err) => {
+             console.log(err);
+           });
+        console.log(user);
+        setUser(user)
+        alert('ok')
+        form.reset()
+      })
+      .catch((error) => {
+        console.log(error);
+        setError(error);
+      });
+   
   };
   return (
     <div id="#singup">
@@ -26,16 +50,34 @@ const SingUp = () => {
           Create a new acount here--
         </h1>
         <div className="card-body">
-          <fieldset onSubmit={handleSubmite} className="fieldset">
+          <form onSubmit={handleSubmite} className="fieldset">
             <label className="fieldset-label text-xl">Name</label>
-            <input type="name" className="input" placeholder="Name" />
+            <input
+              name="name"
+              type="text"
+              className="input"
+              placeholder="Name"
+              required
+            />
             <label className="fieldset-label text-xl">Email</label>
-            <input type="email" className="input" placeholder="Email" />
+            <input
+              name="email"
+              type="email"
+              className="input"
+              placeholder="Email"
+              required
+            />
             <label className="fieldset-label text-xl">Password</label>
-            <input type="password" className="input" placeholder="Password" />
+            <input
+              name="password"
+              type="password"
+              className="input"
+              placeholder="Password"
+              required
+            />
 
             <Gradient_Button>Resister</Gradient_Button>
-          </fieldset>
+          </form>
           <div>
             <NavLink
               to="/login"

@@ -4,18 +4,30 @@ import Gradient_Button from "../../Componets/Gradient_Button/Gradient_Button";
 import { AuthContext } from "../../Componets/Context/ContextApi";
 
 const Login = () => {
-    const { User, setUser, googleAuth } = useContext(AuthContext);
+  const { User, setUser, googleAuth, LoginUser } = useContext(AuthContext);
 
   const handleGoogle = () => {
-    googleAuth()
+    googleAuth().then((result) => {
+      const user = result.user;
+      setUser(user);
+      console.log(user);
+    });
+  };
+  const handleSubmite = (event) => {
+    event.preventDefault()
+    const form = event.target;
+    const email = form.email.value;
+    const password = form.password.value;
+
+    LoginUser(email, password)
       .then((result) => {
         const user = result.user;
         setUser(user);
-        console.log(user);
+        alert("login User");
+      })
+      .catch((err) => {
+        console.log(err);
       });
-  }
-  const handleSubmite = () => {
-    alert("ok");
   };
   return (
     <div id="">
@@ -24,17 +36,24 @@ const Login = () => {
           Login with Email & password
         </h1>
         <div className="card-body ">
-          <fieldset onSubmit={handleSubmite} className="fieldset">
-           
+          <form  onSubmit={handleSubmite} className="fieldset">
             <label className="fieldset-label text-xl">Email</label>
-            <input type="email" className="input" placeholder="Email" />
+            <input name="email" type="email" className="input" placeholder="Email" required/>
             <label className="fieldset-label text-xl">Password</label>
-            <input type="password" className="input" placeholder="Password" />
+            <input
+              name="password"
+              type="password"
+              className="input"
+              placeholder="Password"
+              required
+            />
             <div className="lg:py-4">
-              <a className="hiden link link-hover text-lg  ">Forgot password?</a>
+              <a className="hiden link link-hover text-lg  ">
+                Forgot password?
+              </a>
             </div>
             <Gradient_Button>Login</Gradient_Button>
-          </fieldset>
+          </form>
           <div>
             <NavLink
               to="/singup"
@@ -50,7 +69,10 @@ const Login = () => {
               <hr></hr>
             </div>
             <div className="pb-5  text-center">
-              <button onClick={handleGoogle} className="btn btn-outline outline-slate-600 ">
+              <button
+                onClick={handleGoogle}
+                className="btn btn-outline outline-slate-600 "
+              >
                 CONTINUE WITH GOOGLE
               </button>
             </div>
