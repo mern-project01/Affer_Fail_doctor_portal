@@ -36,6 +36,7 @@ const SingUp = () => {
         setUser(user)
         alert('ok')
         form.reset()
+        setError(null)
       })
       .catch((error) => {
         console.log(error);
@@ -75,7 +76,9 @@ const SingUp = () => {
               placeholder="Password"
               required
             />
-
+            {
+            Error?.message && <p className="text-red-500 text-lg">{Error?.message} </p>
+            }
             <Gradient_Button>Resister</Gradient_Button>
           </form>
           <div>

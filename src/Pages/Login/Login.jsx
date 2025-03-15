@@ -1,11 +1,11 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { NavLink } from "react-router-dom";
 import Gradient_Button from "../../Componets/Gradient_Button/Gradient_Button";
 import { AuthContext } from "../../Componets/Context/ContextApi";
 
 const Login = () => {
   const { User, setUser, googleAuth, LoginUser } = useContext(AuthContext);
-
+const [LoginErr,setLE]=useState()
   const handleGoogle = () => {
     googleAuth().then((result) => {
       const user = result.user;
@@ -23,10 +23,13 @@ const Login = () => {
       .then((result) => {
         const user = result.user;
         setUser(user);
+        form.reset()
         alert("login User");
+        setLE(null)
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
+        setLE(err.message)
       });
   };
   return (
@@ -48,6 +51,9 @@ const Login = () => {
               required
             />
             <div className="lg:py-4">
+              {
+                LoginErr && <p className="text-red-500 text-lg">{LoginErr} </p>
+              }
               <a className="hiden link link-hover text-lg  ">
                 Forgot password?
               </a>
