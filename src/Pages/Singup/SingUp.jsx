@@ -77,7 +77,7 @@ const SingUp = () => {
               required
             />
             {
-            Error?.message && <p className="text-red-500 text-lg">{Error?.message} </p>
+            Error?.message && <p className="text-red-500 text-lg">{Error?.message} </p> 
             }
             <Gradient_Button>Resister</Gradient_Button>
           </form>

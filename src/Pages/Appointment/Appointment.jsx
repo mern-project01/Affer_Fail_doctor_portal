@@ -12,9 +12,9 @@ const Appointment = () => {
         selected={selected}
         setSelected={setSelected}
       ></AppointmentBanner>
-      <AppointmentService selected={selected}></AppointmentService>
+      {/* <AppointmentService selected={selected}></AppointmentService> */}
 
-      <AvailableAppointment></AvailableAppointment>
+      <AvailableAppointment selected={selected}></AvailableAppointment>
     </div>
   );
 };
