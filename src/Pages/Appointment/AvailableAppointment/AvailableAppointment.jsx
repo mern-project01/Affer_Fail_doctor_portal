@@ -1,25 +1,25 @@
-import { format } from 'date-fns';
-import React, { useEffect, useState } from 'react';
+import { format } from "date-fns";
+import React, { useContext, useEffect, useState } from "react";
+import OpenModal from "../OpenModal/OpenModal";
+import { AuthContext } from "../../../Componets/Context/ContextApi";
+import { NavLink } from "react-router-dom";
 
-const AvailableAppointment = ({ selected}) => {
+const AvailableAppointment = ({ selected }) => {
+  const [treatment, setTreatement] = useState(null);
+  console.log(treatment)
   const [availableOptions, setAvailableOptions] = useState([]);
+  const [AvLoding, setAvLoding] = useState(true);
+  const { User } = useContext(AuthContext);
   useEffect(() => {
-   fetch("https://after-fial-backend-2.onrender.com/appontmentOption")
+    fetch("https://after-fial-backend-2.onrender.com/appontmentOption")
       .then((res) => res.json())
-      .then((data) => setAvailableOptions(data));
+      .then((data) => {
+        setAvailableOptions(data);
+        setAvLoding(false);
+      });
   }, []);
-  // useEffect(() => {
-  //   const fetch = async () => {
-  //     const res = await fetch(
-  //       "https://after-fial-backend-2.onrender.com/appontmentOption"
-  //     );
-  //     const data = res.json()
-  //     console.log(data)
-  //     setAvailableOptions(data)
-  //   }
-  // })
   return (
-    <div className="py-16">
+    <div className="">
       <div className="py-12">
         {/* <h1 className="text-center text-primary text-xl md:text-2xl">
           Available slots for Teeth Orthodontics.{" "}
@@ -28,13 +28,16 @@ const AvailableAppointment = ({ selected}) => {
           <h1 className="text-primary text-2xl">
             Available Services on ,
             <span className="text-yellow-500">
-              {selected ? format(selected, "PPPP") : "piked a day "}{" "}
+              {selected
+                ? format(selected, "PPPP")
+                : "Befor booking plase select a day"}{" "}
             </span>{" "}
           </h1>
           <h3 className="text-accent text-xl pt-3">Please select a service.</h3>
         </div>
       </div>
       <div className="grid grid-cols-1 px-6 md:grid-cols-3 gap-4">
+        {AvLoding && <p className="text-red-500 text-5xl">Loding .....</p>}
         {availableOptions.map((option) => (
           <div className="card ">
             <div className="card-body  " key={option._id}>
@@ -50,40 +53,62 @@ const AvailableAppointment = ({ selected}) => {
                 {option.slots.length}{" "}
                 {option.slots.length > 1 ? "Spaces" : "Space"} Availaable{" "}
               </p>
-              <button className="btn btn-success w-[150px] m-auto mt-5 ">
-                Book Now
+              {/* start copy */}
+              <button
+                onClick={() => {
+                  setTreatement(option);
+                  document.getElementById("my_modal_5").showModal();
+                }}
+                className="btn btn-success"
+              >
+                Booking Now
               </button>
-              <div>
-                {/* Open the modal using document.getElementById('ID').showModal() method */}
-                <button
-                  className="btn"
-                  onClick={() =>
-                    document.getElementById("my_modal_5").showModal()
-                  }
-                >
-                  open modal
-                </button>
-                <dialog
-                  id="my_modal_5"
-                  className="modal modal-bottom sm:modal-middle"
-                >
-                  <div className="modal-box">
-                    <h3 className="font-bold text-lg">Hello!</h3>
-                    <p className="py-4">
-                      Press ESC key or click the button below to close
-                    </p>
-                    <div className="modal-action">
-                      <form method="dialog">
-                        {/* if there is a button in form, it will close the modal */}
-                        <button className="btn">Close</button>
-                      </form>
-                    </div>
+
+              {/* end copy */}
+              {/* <button onClick={() => setTreatement(option)}>
+                {User?.email && selected ? (
+                  <div className="">
+                    {selected ? (
+                      <OpenModal
+                        treatment={treatment}
+                        option={option}
+                        selected={selected}
+                      ></OpenModal>
+                    ) : (
+                      <button className=" btn btn-success w-[150px] ">
+                        Booking Now
+                      </button>
+                    )}
                   </div>
-                </dialog>
-              </div>
+                ) : (
+                  <NavLink to="/login" className=" btn btn-success w-[150px] ">
+                    Booking Now
+                  </NavLink>
+                )}
+              </button> */}
+
+              {/* for testing  */}
+              {/* {User?.email && selected ? (
+                <OpenModal
+                  treatment={treatment}
+                  option={option}
+                  selected={selected}
+                ></OpenModal>
+              ) : (
+                <button className=" btn btn-success w-[150px] ">
+                  Booking Now
+                </button>
+              )} */}
             </div>
           </div>
         ))}
+        {User?.email && treatment && (
+          <OpenModal
+            treatment={treatment}
+            // option={treatment}
+            selected={selected}
+          />
+        )}
       </div>
     </div>
   );

@@ -23,11 +23,7 @@ console.log(selected)
               mode="single"
               selected={selected}
               onSelect={setSelected}
-              footer={
-                selected
-                  ? `Selected: ${selected.toLocaleDateString()}`
-                  : "Pick a day."
-              }
+
             />
           </div>
         </div>
