@@ -1,22 +1,15 @@
-import React, { useState } from "react";
-import AppointmentBanner from "./AppointmentBanner/AppointmentBanner";
-import AppointmentService from "./AppointmentService/AppointmentService";
-import AvailableAppointment from "./AvailableAppointment/AvailableAppointment";
+import React, { useState } from 'react';
+import AppointmentBanner from './AppointmentBaner.jsx/AppointmentBaner';
+import AvailableAppointment from './AvailableAppointment/AvailableAppointment';
 
 const Appointment = () => {
-  const [selected, setSelected] = useState(null);
-
-  return (
-    <div>
-      <AppointmentBanner
-        selected={selected}
-        setSelected={setSelected}
-      ></AppointmentBanner>
-      {/* <AppointmentService selected={selected}></AppointmentService> */}
-
-      <AvailableAppointment selected={selected}></AvailableAppointment>
-    </div>
-  );
+    const [selectedDate,setSelectedDate]=useState(null)
+    return (
+        <div>
+            <AppointmentBanner selectedDate={selectedDate} setSelectedDate={setSelectedDate}></AppointmentBanner>
+            <AvailableAppointment selectedDate={selectedDate}></AvailableAppointment>
+        </div>
+    );
 };
 
 export default Appointment;
